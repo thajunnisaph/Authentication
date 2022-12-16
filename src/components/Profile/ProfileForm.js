@@ -1,9 +1,11 @@
 import classes from './ProfileForm.module.css';
 import React,{useRef,useContext} from 'react';
+import { useHistory } from 'react-router-dom';
 import AuthContext from '../../store/AuthContext';
 const ProfileForm = () => {
  const pswdref= useRef();
  const authctx = useContext(AuthContext);
+ const history = useHistory();
 const submitHandler = (event) =>{
 event.preventDefault();
 const newpswd= pswdref.current.value;
@@ -21,7 +23,8 @@ fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyCFx6H
     'Content-Type': 'application/json'
   }
 }).then(res =>{
-  alert('Successfully updated')
+  alert('Successfully updated');
+  history.replace('/');
 }).catch(err =>{
   alert(err.message);
 })
